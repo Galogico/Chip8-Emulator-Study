@@ -4,9 +4,13 @@ pub mod display;
 use display::Display;
 
 fn main() {
-    let my_display = Display::new(8, 8);
+    let width = 16;
+    let height = 16;
+    let my_display = Display::new(height, width);
     println!("emulador da massa");
+    println!("{}", "-----".repeat(width as usize));
     my_display.print_hexa("A");
-    println!("- - - - - - - - - - - - - - - - ");
+    println!("{}", "-----".repeat(width as usize));
     my_display.print_hexa("1");
+    println!("{}", "-----".repeat(width as usize));
 }

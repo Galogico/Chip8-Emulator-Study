@@ -4,12 +4,13 @@ pub struct Display {
     pub width: u8,
 }
 
-fn convert_to_bin(mut number: u8, word_size: u8) -> Vec<u8> {
+fn convert_to_bin(number: u8, word_size: u8) -> Vec<u8> {
     let mut result: Vec<u8> = [0].repeat(word_size as usize);
+    let mut n = number as u32;
     for i in (0..word_size).rev() {
-        let q: u8 = 2_u8.pow(i as u32);
-        if number >= q {
-            number -= q;
+        let q: u32 = 2_u32.pow(i as u32);
+        if n >= q {
+            n -= q;
             result[i as usize] = 1;
         }
     }
@@ -25,7 +26,7 @@ impl Display {
     pub fn render(&self, sprite: Vec<u8>) {
         let rows_left = self.height - sprite.len() as u8;
         for row in sprite {
-            let bin_word = convert_to_bin(row, 8);
+            let bin_word = convert_to_bin(row, self.width);
             let word: Vec<&str> = bin_word
                 .iter()
                 .map(|x| match x {
