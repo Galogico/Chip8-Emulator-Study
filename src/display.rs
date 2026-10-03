@@ -1,3 +1,5 @@
+use colored::Colorize;
+
 #[derive(Debug, Clone, Copy)]
 pub struct Display {
     pub height: u8,
@@ -18,6 +20,17 @@ fn convert_to_bin(number: u8, word_size: u8) -> Vec<u8> {
     result
 }
 
+fn print_row(row: Vec<&str>) {
+    for c in row {
+        if c == "*" {
+            print!("{}", c.cyan());
+        } else {
+            print!("{}", c);
+        }
+    }
+    println!(" ");
+}
+
 impl Display {
     pub fn new(height: u8, width: u8) -> Self {
         Display { height, width }
@@ -34,10 +47,10 @@ impl Display {
                     _ => " ",
                 })
                 .collect();
-            println!("{:?}", word);
+            print_row(word);
         }
         for _ in 0..rows_left {
-            println!("{:?}", [" "].repeat(self.width as usize));
+            print_row([" "].repeat(self.width as usize));
         }
     }
 
